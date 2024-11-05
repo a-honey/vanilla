@@ -1,7 +1,7 @@
+import VirtualDOM from "../utils/VirtualDOM.js";
+
 const Title = () => {
-  const element = document.createElement("div");
-  element.textContent = "타이틀입니다";
-  return element;
+  return VirtualDOM.createElement("h1", {}, "제목입니다");
 };
 
 export default Title;

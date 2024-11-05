@@ -4,14 +4,6 @@ import VirtualDOM from "./utils/VirtualDOM.js";
 
 const root = document.getElementById("root");
 
-const title = Title();
-const body = Body();
+const node = VirtualDOM.createElement("div", { id: "app" }, Title(), Body());
 
-root.appendChild(title);
-root.appendChild(body);
-
-const virtualDOM = new VirtualDOM();
-
-const node = virtualDOM.createElement("div", { id: "app" });
-
-virtualDOM.render(node, root);
+VirtualDOM.render(node, root);

@@ -1,11 +1,15 @@
 class VirtualDOM {
   constructor() {
-    this.root = null;
+    if (!VirtualDOM.instance) {
+      this.root = null;
+      VirtualDOM.instance = this;
+    }
+    return VirtualDOM.instance;
   }
 
   //** 가상 노드 생성 */
-  createElement(tagName, props) {
-    return { tagName, props };
+  createElement(tagName, props = {}, ...children) {
+    return { tagName, props, children };
   }
 
   //** 가상 노드를 실제 DOM에 반영 */
@@ -27,8 +31,17 @@ class VirtualDOM {
       element[key] = vNode.props[key];
     });
 
+    if (vNode.children) {
+      vNode.children.forEach((child) => {
+        const childElement = this._createElement(child);
+        element.appendChild(childElement);
+      });
+    }
+
     return element;
   }
 }
 
-export default VirtualDOM;
+const instance = new VirtualDOM();
+
+export default instance;

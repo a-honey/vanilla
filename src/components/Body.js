@@ -1,7 +1,7 @@
+import VirtualDOM from "../utils/VirtualDOM.js";
+
 const Body = () => {
-  const element = document.createElement("div");
-  element.textContent = "본문입니다";
-  return element;
+  return VirtualDOM.createElement("div", {}, "본문입니다");
 };
 
 export default Body;
