@@ -16,6 +16,7 @@ class VirtualDOM {
   render(vNode, container) {
     const element = this._createElement(vNode);
     this.root = element;
+    container.innerHTML = "";
     container.appendChild(element);
   }
 
@@ -28,7 +29,12 @@ class VirtualDOM {
     const element = document.createElement(vNode.tagName);
 
     Object.keys(vNode.props).forEach((key) => {
-      element[key] = vNode.props[key];
+      if (key.startsWith("on")) {
+        const eventType = key.substring(2).toLowerCase();
+        element.addEventListener(eventType, vNode.props[key]);
+      } else {
+        element[key] = vNode.props[key];
+      }
     });
 
     if (vNode.children) {
