@@ -4,26 +4,27 @@ class VirtualDOM {
   }
 
   //** 가상 노드 생성 */
-  createVirtualElement(tagName, props) {
+  createElement(tagName, props) {
     return { tagName, props };
   }
 
   //** 가상 노드를 실제 DOM에 반영 */
-  render(node, container) {
-    const element = this.createRealElement(node);
+  render(vNode, container) {
+    const element = this._createElement(vNode);
     this.root = element;
     container.appendChild(element);
   }
 
-  createRealElement(node) {
-    if (typeof node === "string") {
-      return document.createTextNode(node);
+  //** 가상 노드를 실제 노드로 변경 */
+  _createElement(vNode) {
+    if (typeof vNode === "string") {
+      return document.createTextNode(vNode);
     }
 
-    const element = document.createElement(node.tagName);
+    const element = document.createElement(vNode.tagName);
 
-    Object.keys(node.props).forEach((key) => {
-      element[key] = node.props[key];
+    Object.keys(vNode.props).forEach((key) => {
+      element[key] = vNode.props[key];
     });
 
     return element;

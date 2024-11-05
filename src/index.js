@@ -12,6 +12,6 @@ root.appendChild(body);
 
 const virtualDOM = new VirtualDOM();
 
-const node = virtualDOM.createVirtualElement("div", { id: "app" });
+const node = virtualDOM.createElement("div", { id: "app" });
 
 virtualDOM.render(node, root);
